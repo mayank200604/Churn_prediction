@@ -56,6 +56,11 @@ def preprocess_data(filepath="churn.csv"):
     columns_to_scale = ['tenure', 'SeniorCitizen', 'TotalCharges', 'MonthlyCharges']
     X[columns_to_scale] = scaler.fit_transform(X[columns_to_scale])
 
+    # Save scaler for inference
+    joblib.dump(scaler, "scaler.pkl")
+    # Save feature names to ensure correct order in inference
+    joblib.dump(X.columns.tolist(), "model_columns.pkl")
+
     return X, y, df
 
 
